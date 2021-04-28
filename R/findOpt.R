@@ -191,7 +191,7 @@ findOpt <- function(alpha=0.05, POWER=0.9, ra = NULL, Sa = NULL, Ea, lambda, eta
     }
     if (i==1) {
       warning("Input p0 is not obtainable under such setting. Please try a smaller one! \n")
-      break
+      return(NULL)
     }
     out = out[1:i, ]
   }
