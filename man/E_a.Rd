@@ -13,7 +13,7 @@ E_a(HR, alpha, power, alloc)
 
 \item{power}{power required to observe the significant result under current settings, a numeric value in (0, 1)}
 
-\item{alloc}{alloc allocation between two arms, i.e. arm 1/(arm1 + arm2), a numeric value in (0,1)}
+\item{alloc}{allocation between two arms, i.e. arm 1/(arm1 + arm2), a numeric value in (0,1)}
 }
 \value{
 Number of exepected events, an integer value (rounding-up)

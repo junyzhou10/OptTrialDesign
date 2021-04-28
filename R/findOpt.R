@@ -27,21 +27,23 @@
 #' to input max(ra) in the function, and obtain the optimal trial design from the ouput.
 #' @return Optimal set that maximize the financial benefits but at meantime, yields clinical meaningful results & data maturity constraints .
 #' The results are saved in a list with three elements:
-#' \item{Res}{The optimal trial design. A list including optimal (S, N, ra, Sa), but also Ea, actual power (AccPower), data maturity indicators (id.c1-4), total sale (Sale), total cost (Cost), total revenue (Rev), probability of observing clinical meaningful results (PA)}
-#' \item{All.dat}{A table of all potential trial designs}
-#' \item{Valid.set}{A table of all valid trial designs, from which to find the optimal one}
+#' \item{OptRes}{The optimal trial design. A list including optimal (S, N, ra, Sa), but also Ea, actual power (AccPower), data maturity indicators (id.c1-4), total sale (Sale), total cost (Cost), total revenue (Rev), probability of observing clinical meaningful results (PA)}
+#' \item{Designs}{A table of all potential trial designs}
+#' \item{Valid.set}{A vector of indicators with the same length of dim(Designs)[1]. TRUEs indicate the designs satisfy the data maturity constraints}
 #' @examples
-#' findOpt(ra = NULL, Sa = 15, Ea=88, lambda=c(log(2)/20, log(2)/10), eta=c(log(2)/120, log(2)/100),
-#' b=18, c0=10, c1=0.6, c2=0.1, dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 6)
+#' findOpt(ra = NULL, Sa = 15, Ea=88, lambda=c(log(2)/20, log(2)/10),
+#' eta=c(log(2)/120, log(2)/100), b=18, c0=10, c1=0.6, c2=0.1,
+#' dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 6)
 #'
 #' # input ra, and more data constraints
-#' findOpt(ra = c(10,20,30,40,36), Ea=88, lambda=c(log(2)/20, log(2)/10), eta=c(log(2)/120, log(2)/100),
-#' b=18, c0=10, c1=0.6, c2=0.1, dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 10, e0 = 0.6, p0 = 0.7, m0 = 6)
+#' findOpt(ra = c(10,20,30,40,36), Ea=88, lambda=c(log(2)/20, log(2)/10),
+#' eta=c(log(2)/120, log(2)/100), b=18, c0=10, c1=0.6, c2=0.1,
+#' dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 10, e0 = 0.6, p0 = 0.7, m0 = 6)
 #' @importFrom stats pnorm rexp runif uniroot
 #'
 #' @export
 #' @references (Nektar Therapeutics) An Optimal Design Strategy for Phase III Clinical Trials with Time-To-Event Endpoint
-findOpt <- function(alpha=0.05, POWER=0.9, ra = NULL, Sa = NULL, Ea, lambda, eta, alloc = 0.5, c0, c1, c2, b, dL, d0_r0, Aj.Ind = "NotUsed", t0 = NA, e0 = NA, p0 = NA, m0 = NA, ...){
+findOpt <- function(alpha=0.05, POWER=0.9, ra = NULL, Sa = NULL, Ea, lambda, eta, alloc = 0.5, c0, c1, c2, b, dL, d0_r0=NULL, Aj.Ind = "NotUsed", t0 = NA, e0 = NA, p0 = NA, m0 = NA, ...){
   PA = NULL
   Sa0 = Sa
   b0  = b # just some backup
@@ -147,7 +149,7 @@ findOpt <- function(alpha=0.05, POWER=0.9, ra = NULL, Sa = NULL, Ea, lambda, eta
     return(c(N, S, Sa, ra, PA, rev, cost, sale))
   })
   out0 <- out <- t(out)
-  colnames(out0) <- colnames(out) <- c("N", "S", "Sa", "ra", "PA", "revenue", "costs", "sales")
+
 
   # Check for C2
   if ( !is.na(e0) ) {
@@ -205,6 +207,7 @@ findOpt <- function(alpha=0.05, POWER=0.9, ra = NULL, Sa = NULL, Ea, lambda, eta
   ignore   = ifelse(is.na(opt.set[4]), rr<-ra0, rr<-opt.set[4])
   Res      = list(AccPower = AccPower, N = opt.set[1], S = opt.set[2], Sa = opt.set[3], ra = rr, # notice ra could be NA as output which indicates piecewise
                   id.c1=id.c1, id.c2=id.c2, id.c3=id.c3, id.c4=id.c4, Sale = opt.set[8], Cost = opt.set[7], Rev = opt.set[6], PA =opt.set[5], N.min = N.min, N.max = N.max)
-  return(list(Res = Res, All.dat = out0, Valid.set = out))
+  colnames(out0) <- colnames(out) <- c("N", "S", "Sa", "ra", "PA", "revenue", "costs", "sales")
+  return(list(OptRes = Res, Designs = out0, Valid.set = out0[,1] %in% out[,1]))
 }
 

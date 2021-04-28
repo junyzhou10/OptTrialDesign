@@ -3,7 +3,7 @@
 #' @param HR Hazard Ratio, a numeric value in (0, 1)
 #' @param alpha type I error of one-sided log-rank test, a numeric value in (0, 1)
 #' @param power power required to observe the significant result under current settings, a numeric value in (0, 1)
-#' @param alloc alloc allocation between two arms, i.e. arm 1/(arm1 + arm2), a numeric value in (0,1)
+#' @param alloc allocation between two arms, i.e. arm 1/(arm1 + arm2), a numeric value in (0,1)
 #' @return Number of exepected events, an integer value (rounding-up)
 #' @examples E_a(HR=0.5, alpha=0.025, power=0.9, alloc=0.5)
 #' @export

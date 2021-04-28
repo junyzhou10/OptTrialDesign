@@ -18,7 +18,7 @@ findOpt(
   c2,
   b,
   dL,
-  d0_r0,
+  d0_r0 = NULL,
   Aj.Ind = "NotUsed",
   t0 = NA,
   e0 = NA,
@@ -71,9 +71,9 @@ findOpt(
 \value{
 Optimal set that maximize the financial benefits but at meantime, yields clinical meaningful results & data maturity constraints .
 The results are saved in a list with three elements:
-\item{Res}{The optimal trial design. A list including optimal (S, N, ra, Sa), but also Ea, actual power (AccPower), data maturity indicators (id.c1-4), total sale (Sale), total cost (Cost), total revenue (Rev), probability of observing clinical meaningful results (PA)}
-\item{All.dat}{A table of all potential trial designs}
-\item{Valid.set}{A table of all valid trial designs, from which to find the optimal one}
+\item{OptRes}{The optimal trial design. A list including optimal (S, N, ra, Sa), but also Ea, actual power (AccPower), data maturity indicators (id.c1-4), total sale (Sale), total cost (Cost), total revenue (Rev), probability of observing clinical meaningful results (PA)}
+\item{Designs}{A table of all potential trial designs}
+\item{Valid.set}{A vector of indicators with the same length of dim(Designs)[1]. TRUEs indicate the designs satisfy the data maturity constraints}
 }
 \description{
 A function to seek the optimal trial design in terms of both financial benefits and regulatory consideration, i.e. clinical meaningful results, and data maturity requirements
@@ -86,12 +86,14 @@ more desired. Therefore, the optimal results must happen at max(ra). In reality,
 to input max(ra) in the function, and obtain the optimal trial design from the ouput.
 }
 \examples{
-findOpt(ra = NULL, Sa = 15, Ea=88, lambda=c(log(2)/20, log(2)/10), eta=c(log(2)/120, log(2)/100),
-b=18, c0=10, c1=0.6, c2=0.1, dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 6)
+findOpt(ra = NULL, Sa = 15, Ea=88, lambda=c(log(2)/20, log(2)/10),
+eta=c(log(2)/120, log(2)/100), b=18, c0=10, c1=0.6, c2=0.1,
+dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 6)
 
 # input ra, and more data constraints
-findOpt(ra = c(10,20,30,40,36), Ea=88, lambda=c(log(2)/20, log(2)/10), eta=c(log(2)/120, log(2)/100),
-b=18, c0=10, c1=0.6, c2=0.1, dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 10, e0 = 0.6, p0 = 0.7, m0 = 6)
+findOpt(ra = c(10,20,30,40,36), Ea=88, lambda=c(log(2)/20, log(2)/10),
+eta=c(log(2)/120, log(2)/100), b=18, c0=10, c1=0.6, c2=0.1,
+dL=180, Aj.Ind = "Median Ratio", d0_r0 = 1.4, t0 = 10, e0 = 0.6, p0 = 0.7, m0 = 6)
 }
 \references{
 (Nektar Therapeutics) An Optimal Design Strategy for Phase III Clinical Trials with Time-To-Event Endpoint
