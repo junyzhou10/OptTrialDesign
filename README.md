@@ -4,7 +4,7 @@ This package is used to find the optimal clinical trial design which maximizing 
 ## Distribution assumptions
 The algorithm adopts the time-to-event endpoint under the proportional hazard (PH) assumption, which is common in clinical trial designs.
 
-The event time and loss to follow-up time are assumed from exponential distributions.
+The event time and loss to follow-up time follow the exponential distributions.
 
 ## Installation
 To install the package: devtools::install_github("junyzhou10/OptTrialDesign")
