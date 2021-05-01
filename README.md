@@ -9,4 +9,7 @@ The event time and loss to follow-up time follow the exponential distributions.
 Both uniform and piecewise accrual rate are supported.
 
 ## Installation
-To install the package: devtools::install_github("junyzhou10/OptTrialDesign")
+To install the package: 
+```r
+devtools::install_github("junyzhou10/OptTrialDesign")
+```
