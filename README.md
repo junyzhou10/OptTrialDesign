@@ -13,3 +13,7 @@ To install the package:
 ```r
 devtools::install_github("junyzhou10/OptTrialDesign")
 ```
+## Usage
+Users specify the required study design parameters, such as alpha, power, allocation of arms, median survival time and loss to follow-up (dropout) rate of both arms; financial parameters, such as fixed cost per subject, per unit time, and revenue information; regulatory-related parameters, such as data maturity constraints, and clincial meaningful thresholds. 
+
+There is a [shiny app](https://junyzhou.shinyapps.io/OptTrialDesign/) available for readily implement the package.
