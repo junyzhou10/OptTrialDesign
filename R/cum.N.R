@@ -1,10 +1,10 @@
-#' @title Calculate the number of accrued samples (Not for all)
+#' @title Calculate the number of accrued samples (Not for call)
 #' @description Function used for calculating number of cumulative accrued samples based on a piecewise accrual rate. Used for piecewise accrual case.
 #' @param Sa Accrual duration
 #' @param ra.seq Sequence of piecewise accrual rate. If length(ra.seq)>Sa, it directly assumes using ra.seq[-1] (the last one) as the accrual rate for the rest accrual period
 #' @return A number of accrued samples
 #' @examples cum.N(10, c(10,15,20,30,25))
-#' @export
+#' @noRd
 
 cum.N <- function(Sa, ra.seq) {
   if (length(ra.seq) > Sa) { # need to be truncated

@@ -1,9 +1,10 @@
-#' @title Calculate the time of accrual (Not for all)
+#' @title Calculate the time of accrual (Not for call)
 #' @description Function used for calculating the time of accrual time based on the given number of accrued samples. Used for piecewise accrual case.
 #' @param N Number of total samples. If sum(ra.seq)<N, it directly assumes using ra.seq[-1] (the last one) as the accrual rate for the rest samples
 #' @param ra.seq Sequence of piecewise accrual rate.
 #' @param Acc Number of already accrued samples
 #' @return Time of accural period
+#' @noRd
 
 inv.N <- function(N, ra.seq, Acc){ # knowing Acc(acc of enrolled sample), return time
   if (sum(ra.seq) > N) {
